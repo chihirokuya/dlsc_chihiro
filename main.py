@@ -19,7 +19,7 @@ torch.backends.cudnn.benchmark = False
 np.random.seed(seed)
 random.seed(seed)
 
-device_type = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device_type = 'cpu'
 
 # for the plots
 plt.rc('xtick', labelsize=16)
@@ -128,7 +128,7 @@ def train(x0: Tensor, xf: Tensor, epochs: int, n_samples: int, batch_size: int,
         network = qNN1(100)
 
     # network.sym = True
-    for epoch in range(epoch_beg, 3):
+    for epoch in range(epoch_beg, epochs):
         w_pde = [1]
         w_norm = [1]
         w_orth = [1/25]
@@ -140,9 +140,9 @@ def train(x0: Tensor, xf: Tensor, epochs: int, n_samples: int, batch_size: int,
             w_orth = [0.2]
             w_pde = [4]
         elif orth_counter[0] == 2:
-            lr = float(0.05)
+            lr = float(0.04)
             w_orth = [0.1]
-            w_pde = [4]
+            w_pde = [8]
         elif orth_counter[0] == 3:
             lr = float(0.04)
             w_orth = [0.1]
@@ -282,11 +282,11 @@ def train(x0: Tensor, xf: Tensor, epochs: int, n_samples: int, batch_size: int,
 
     save_solution(dic, x_samples, 1)
     save_solution(dic, x_samples, 2)
-    save_solution(dic, x_samples, 3)
+    # save_solution(dic, x_samples, 3)
     save_solution(dic, x_samples, 4)
 
 
 x0, xf = 0., np.pi
-epochs, n_samples = int(1), 1201
+epochs, n_samples = 3, 1201
 batch_size = n_samples
 train(x0, xf, epochs, n_samples, batch_size, load1=False, load2=False, load4=False)

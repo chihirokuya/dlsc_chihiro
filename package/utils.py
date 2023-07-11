@@ -2,7 +2,7 @@ import torch
 from torch.autograd import grad
 
 dtype = torch.float
-device_type = 'cuda:0' if torch.cuda.is_available() else 'cpu'
+device_type = 'cpu'
 # Define some more general functions
 
 
